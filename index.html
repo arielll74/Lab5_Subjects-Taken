@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Online CV</title>
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="assets/CSS/styles.css">
+
+</head>
+<body>
+
+  <header>
+    <p>I am a header with an unordered list of hyperlinks</p>
+    <nav>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="image-section">
+    <figure>
+      <img src="cat.png" alt="Profile picture of Ariel Frias" width="150" />
+      <figcaption>Ariel Frias</figcaption>
+    </figure>
+  </section>
+
+  <div class="page-content">
+
+    <div class="card" id="subjects">
+      <p class="card-header">Subjects Taken</p>
+      <div class="card-body">
+        <table id="subjects-table" border="1">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Semester</th>
+              <th>Courses</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Data from JSON will be inserted here -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+
+    <div class="card" id="about">
+      <p class="card-header">About</p>
+      <p class="card-body">Hello! Tell us about yourself.</p>
+    </div>
+
+    <div class="card" id="education">
+      <p class="card-header">Education</p>
+      <p class="card-body">Tell us about your education.</p>
+    </div>
+
+    <div class="card" id="skills">
+      <p class="card-header">Skills</p>
+      <p class="card-body">Tell us about your IT Skills.</p>
+    </div>
+
+    <div class="card" id="portfolio">
+      <p class="card-header">Portfolio</p>
+      <p class="card-body">Share your previous IT projects.</p>
+    </div>
+
+    <div class="card" id="contact">
+      <p class="card-header">Contact</p>
+      <p class="card-body">Reach out to me!</p>
+    </div>
+
+  </div>
+
+  <footer>
+    I am a footer, the last section of this page.
+  </footer>
+  <script>
+    fetch('https://arielll74.github.io/Subjects-Taken/courses.json') 
+
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector("#subjects-table tbody");
+  
+        data.subjects.forEach(subject => {
+          let row = document.createElement("tr");
+          let yearCell = document.createElement("td");
+          let semCell = document.createElement("td");
+          let coursesCell = document.createElement("td");
+  
+          yearCell.textContent = subject.year;
+          semCell.textContent = subject.semester;
+          coursesCell.innerHTML = `<ul>${subject.courses.map(course => `<li>${course}</li>`).join("")}</ul>`;
+  
+          row.appendChild(yearCell);
+          row.appendChild(semCell);
+          row.appendChild(coursesCell);
+          tableBody.appendChild(row);
+        });
+      })
+      .catch(error => console.error("Error fetching the courses:", error));
+  </script>
+  
+</body>
+</html>
